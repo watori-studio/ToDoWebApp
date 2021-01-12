@@ -148,7 +148,6 @@ Vue.createApp({
       const currentTodos = JSON.parse(localStorage.getItem('todos'));
       return currentTodos
         .filter(function (todo) {
-          //alert(selectedCategory);
           // カテゴリーの条件
           return (
             !selectedCategory ||
