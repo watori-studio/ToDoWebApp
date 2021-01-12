@@ -120,7 +120,6 @@ Vue.createApp({
       if (a) {
         b = a.length > 0;
       }
-
       return this.todos.length > 0 || b;
     },
     storedTodoCategories: function () {
