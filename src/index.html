@@ -18,11 +18,10 @@
   </header>
 
   <div id="app">
-    <!-- 独自のタグを埋め込み
+    <!-- 独自のタグを埋め込み-->
     <div id="id1">
-      <my-title></my-title>
+      <app-description></app-description>
     </div>
-    -->
     <div class="new-todo">
       <div class="new-todo-item">
         <label for="new-todo-title">タイトル</label>
@@ -107,11 +106,12 @@
     <p v-else>ToDoタスクはまだ登録されていません</p>
     <button type="submit" :disabled="!canCreateCategory">作成</button>
   </div>
-  <!--　ここに書いた内容を再利用可能。ただし、読み込み順には気をつける 
-  <script type="text/x-template" id="title-template">
-    <input type="text" v-model="title" />
+  <!--　ここに書いた内容を再利用可能。ただし、読み込み順には気をつける -->
+  <script type="text/x-template" id="app-description">
+    <p>This App is Test ToDo Application
+    </p>
   </script>
--->
+
   <script src="app.js"></script>
 </body>
 

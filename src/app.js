@@ -1,15 +1,15 @@
 Vue.createApp({
   // アプリケーションの定義
-  // components: {
-  //   'my-title': {
-  //     data: function () {
-  //       return {
-  //         title: '',
-  //       };
-  //     },
-  //     template: '#title-template',
-  //   },
-  // },
+  components: {
+    'app-description': {
+      data: function () {
+        return {
+          title: '',
+        };
+      },
+      template: '#app-description',
+    },
+  },
   data: function () {
     return {
       todoTitle: '',
