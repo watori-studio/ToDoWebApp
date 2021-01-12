@@ -116,7 +116,7 @@ Vue.createApp({
     },
     hasTodos: function () {
       const a = JSON.parse(localStorage.getItem('todos'));
-      const b = true;
+      let b = true;
       if (a) {
         b = a.length > 0;
       }
