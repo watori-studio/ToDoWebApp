@@ -1,123 +1,119 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>ToDo アプリ</title>
-    <link rel="stylesheet" href="style.css" />
-    <!--本番モード用URL-->
-    <!-- "https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"-->
-    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
-  </head>
-  <body>
-    <header></header>
 
-    <h1 class="title">ToDo アプリ</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>ToDo アプリ</title>
+  <link rel="stylesheet" href="style.css" />
+  <!--本番モード用URL-->
+  <!-- "https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"-->
+  <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+</head>
 
-    <div id="app">
-      <div class="new-todo">
-        <div class="new-todo-item">
-          <label for="new-todo-title">タイトル</label>
-          <input
-            v-model.trim="todoTitle"
-            type="text"
-            id="new-todo-title"
-            form="form-todo"
-          />
-        </div>
+<body>
+  <header>
+    <h1 class="title">
+      <font color="white">ToDo アプリ</font>
+    </h1>
+  </header>
 
-        <div class="new-todo-item">
-          <label for="new-todo-description">説明</label>
-          <textarea
-            id="new-todo-description"
-            v-model.trim="todoDescription"
-            form="form-todo"
-          ></textarea>
-        </div>
-        <div class="new-todo-category">
-          カテゴリ
-
-          <form @submit.prevent="createCategory">
-            <input v-model.trim="categoryName" type="text" />
-            <button type="submit" :disabled="!canCreateCategory">作成</button>
-          </form>
-          <li v-for="category in storedTodoCategories":key="category" style="list-style: none;">
-            <label for="'category-'+ category">
-              <input v-model = "todoCategories" type="checkbox":id="'category' + category ":value="category" form ="form-todo" />
-              {{category}}
-            </label>
-          </li>
-
-        </div>
-
-        <div class="new-todo-action">
-          カテゴリ
-          <form id="form-todo" @submit.prevent="createTodo">
-            <button type="submit" :disabled="!canCreateTodo">作成</button>
-          </form>
-        </div>
+  <div id="app">
+    <!-- 独自のタグを埋め込み
+    <div id="id1">
+      <my-title></my-title>
+    </div>
+    -->
+    <div class="new-todo">
+      <div class="new-todo-item">
+        <label for="new-todo-title">タイトル</label>
+        <input v-model.trim="todoTitle" type="text" id="new-todo-title" form="form-todo" />
       </div>
 
-      <div>
-        <div class="todo-search">
-          <div class="todo-search-item">
-            <label for="todo-search-category"カテゴリーでフィルタ></label>
-            <select v-model="selectedCategory" id="todo-search-category">
-              <option value="">指定なし</option>
-              <option v-for="category in storedTodoCategories" :key="category" :value ="category"> {{category}}</option>
-            </select>
-          </div>
+      <div class="new-todo-item">
+        <label for="new-todo-description">説明</label>
+        <textarea id="new-todo-description" v-model.trim="todoDescription" form="form-todo"></textarea>
+      </div>
 
-          <div class="todo-search-item">
-            <label for="todo-search-done"
-              >完了済みのタスクを非表示
-              <input
-                type="checkbox"
-                v-model="hideDoneTodo"
-                id="todo-search-done"
-            /></label>
-          </div>
+      <div class="new-todo-category">
+        カテゴリ
+        <form @submit.prevent="createCategory">
+          <input v-model.trim="categoryName" type="text" />
+          <button type="submit" :disabled="!canCreateCategory">作成</button>
+        </form>
+        <li v-for="category in storedTodoCategories" :key="category" style="list-style: none;">
+          <label for="'category-'+ category">
+            <input v-model="todoCategories" type="checkbox" :id="'category' + category " :value="category"
+              form="form-todo" />
+            {{category}}
+          </label>
+        </li>
+      </div>
 
-          <div class="todo-search-item">
-            <select v-model="order">
-              <option value="desc">降順</option>
-              <option value="asc">昇順</option>
-            </select>
-          </div>
+      <div class="new-todo-action">
+        <form id="form-todo" @submit.prevent="createTodo">
+          <button type="submit" :disabled="!canCreateTodo">作成</button>
+        </form>
+      </div>
+    </div>
 
-          <div class="todo-search-item">
-            <label for="todo-search-keyword">キーワードで検索</label>
-            <input
-              v-model.trim="searchWord"
-              type="text"
-              id="todo-search-keyword"
-            />
-          </div>
+    <div class="todo-search">
+      <div class="todo-search-item">
+        <label for="todo-search-category" カテゴリーでフィルタ></label>
+        <select v-model="selectedCategory" id="todo-search-category">
+          <option value="">指定なし</option>
+          <option v-for="category in storedTodoCategories" :key="category" :value="category"> {{category}}</option>
+        </select>
+      </div>
 
+      <div class="todo-search-item">
+        <label for="todo-search-done">完了済みのタスクを非表示
+          <input type="checkbox" v-model="hideDoneTodo" id="todo-search-done" /></label>
+      </div>
+
+      <div class="todo-search-item">
+        <select v-model="order">
+          <option value="desc">降順</option>
+          <option value="asc">昇順</option>
+        </select>
+      </div>
+
+      <div class="todo-search-item">
+        <label for="todo-search-keyword">キーワードで検索</label>
+        <input v-model.trim="searchWord" type="text" id="todo-search-keyword" />
+      </div>
+
+    </div>
+
+    <ul v-if="hasTodos" class="todo-list">
+      <!-- ここにToDoタスクの一覧を出力します -->
+      <li v-for="(todo,index) in resultTodos" :key="todo.id" class="todo-item">
+        <div class="todo-item-done">
+          <input v-model="todo.done" type="checkbox" />
         </div>
-        
-        <ul v-if="hasTodos" class="todo-list">
-          <!-- ここにToDoタスクの一覧を出力します -->
-          <li v-for="(todo,index) in resultTodos":key="todo.id" class="todo-item">
-            <div class="todo-item-done">
-              <input v-model="todo.done" type="checkbox"/>
-            </div>
-            <div class="todo-item-content">
-              <div class="todo-item-date">{{new Date(todo.dateTime).toString()}}</div>
-              <h3 class ="todo-item-title">{{todo.title}}</h3>
-              <!---概要未登録は非表示-->
-              <div v-if="todo.description" class ="todo-item-description">
-                {{todo.description}}
-              </div>
-              <ul class = "todo-item-categories" v-if="todo.categories.length > 0">
-                <li v-for = "category in todo.categories" :key="category" class = "todo-item-category">
-                  {{category}}
-                </li>
-              </ul>
-          </li>
-        </ul>
-        <p v-else>ToDoタスクはまだ登録されていません</p>
-        <button type="submit" :disabled="!canCreateCategory">作成</button>
-
+        <div class="todo-item-content">
+          <div class="todo-item-date">{{new Date(todo.dateTime).toString()}}</div>
+          <h3 class="todo-item-title">{{todo.title}}</h3>
+          <!---概要未登録は非表示-->
+          <div v-if="todo.description" class="todo-item-description">
+            {{todo.description}}
+          </div>
+          <ul class="todo-item-categories" v-if="todo.categories.length > 0">
+            <li v-for="category in todo.categories" :key="category" class="todo-item-category">
+              {{category}}
+            </li>
+          </ul>
+      </li>
+    </ul>
+    <p v-else>ToDoタスクはまだ登録されていません</p>
+    <button type="submit" :disabled="!canCreateCategory">作成</button>
+  </div>
+  <!--　ここに書いた内容を再利用可能。ただし、読み込み順には気をつける 
+  <script type="text/x-template" id="title-template">
+    <input type="text" v-model="title" />
+  </script>
+-->
   <script src="app.js"></script>
-  </body>
+</body>
+
+
 </html>
