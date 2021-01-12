@@ -115,9 +115,13 @@ Vue.createApp({
       return date.getFullYear() + '/' + (date.getMonth() + 1);
     },
     hasTodos: function () {
-      const a = JSON.parse(localStorage.getItem('todos')).length > 0;
+      const a = JSON.parse(localStorage.getItem('todos'));
+      const b = true;
+      if (a) {
+        b = a.length > 0;
+      }
 
-      return this.todos.length > 0 || a;
+      return this.todos.length > 0 || b;
     },
     storedTodoCategories: function () {
       const categories = JSON.parse(localStorage.getItem('categories'));
