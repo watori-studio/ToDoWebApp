@@ -149,34 +149,39 @@ Vue.createApp({
       const serchWord = this.searchWord;
 
       const currentTodos = JSON.parse(localStorage.getItem('todos'));
-      return currentTodos
-        .filter(function (todo) {
-          // カテゴリーの条件
-          return (
-            !selectedCategory ||
-            todo.categories.indexOf(selectedCategory) !== -1
-          );
-        })
-        .filter(function (todo) {
-          // 非表示のTodoはfalseを返却
-          if (hideDoneTodo) {
-            return !todo.done;
-          }
-          return true;
-        })
-        .filter(function (todo) {
-          // タイトル、概要の部分一致検索
-          return (
-            todo.title.indexOf(serchWord) !== -1 ||
-            todo.description.indexOf(serchWord) !== -1
-          );
-        })
-        .sort(function (a, b) {
-          if (order === 'asc') {
-            return a.dateTime - b.dataTime;
-          }
-          return b.dateTime - a.dateTime;
-        });
+
+      if (currentTodos) {
+        return currentTodos
+          .filter(function (todo) {
+            // カテゴリーの条件
+            return (
+              !selectedCategory ||
+              todo.categories.indexOf(selectedCategory) !== -1
+            );
+          })
+          .filter(function (todo) {
+            // 非表示のTodoはfalseを返却
+            if (hideDoneTodo) {
+              return !todo.done;
+            }
+            return true;
+          })
+          .filter(function (todo) {
+            // タイトル、概要の部分一致検索
+            return (
+              todo.title.indexOf(serchWord) !== -1 ||
+              todo.description.indexOf(serchWord) !== -1
+            );
+          })
+          .sort(function (a, b) {
+            if (order === 'asc') {
+              return a.dateTime - b.dataTime;
+            }
+            return b.dateTime - a.dateTime;
+          });
+      } else {
+        return;
+      }
     },
   },
 }).mount('#app');
