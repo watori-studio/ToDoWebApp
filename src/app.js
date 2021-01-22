@@ -1,17 +1,44 @@
-Vue.createApp({
-  // アプリケーションの定義
-  components: {
-    'app-description': {
-      data: function () {
-        return {
-          title: '',
-        };
-      },
-      template: '#app-description',
+const countUpButton = {
+  template: '#btn-template',
+  props: {
+    count: {
+      type: Number,
+      required: true,
     },
   },
+  methods: {
+    onClick: function () {
+      this.$emit('update:count', this.count + 1);
+    },
+  },
+};
+
+const sampleComponets = {
+  props: {
+    name: {
+      type: String,
+      default: function () {
+        return 'defalut Name';
+      },
+      validator: function (value) {
+        return value.length > 0;
+      },
+      required: true,
+    },
+  },
+  computed: {
+    sampleName: function () {
+      return this.name;
+    },
+  },
+  template: '#id-app-description',
+};
+
+Vue.createApp({
+  // アプリケーションの定義
   data: function () {
     return {
+      title: 'testWebApp',
       todoTitle: '',
       todoDescription: '',
       searchWord: '',
@@ -26,6 +53,10 @@ Vue.createApp({
       testText: '',
       storedTodoCategories: this.storedTodoCategories,
     };
+  },
+  components: {
+    'app-description': sampleComponets,
+    'count-up-button': countUpButton,
   },
   // データの変更を監視する
   watch: {
@@ -47,6 +78,10 @@ Vue.createApp({
 
   // イベント実行時の動作を定義
   methods: {
+    // countUp: function (nextCount) {
+    //   this.count = nextCount;
+    // },
+
     createTodo: function () {
       // Todo　作成チェック
       if (!this.canCreateTodo) {

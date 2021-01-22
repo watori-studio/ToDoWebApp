@@ -20,7 +20,9 @@
   <div id="app">
     <!-- 独自のタグを埋め込み-->
     <div id="id1">
-      <app-description></app-description>
+      <app-description :name = "title"></app-description>
+      <count-up-button v-model:count="count" @count-up="countUp"></count-up-button> 
+      <div>{{count}}</div>
     </div>
     <div class="new-todo">
       <div class="new-todo-item">
@@ -107,13 +109,15 @@
     <button type="submit" :disabled="!canCreateCategory">作成</button>
   </div>
   <!--　ここに書いた内容を再利用可能。ただし、読み込み順には気をつける -->
-  <script type="text/x-template" id="app-description">
-    <p>This App is Test ToDo Application
+  <script type="text/x-template" id="id-app-description">
+    <p>{{sampleName}}
     </p>
+  </script>
+
+  <script type="text/x-template" id="btn-template">
+    <button type ="button" @click="onClick">COUNT UP | {{count}}+1</button>
   </script>
 
   <script src="app.js"></script>
 </body>
-
-
 </html>
