@@ -34,6 +34,30 @@ const sampleComponets = {
   template: '#id-app-description',
 };
 
+const todoItem = {
+  template: '#template-todo-item',
+  props: {
+    todo: {
+      type: Object,
+      required: true,
+    },
+    done: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  computed: {
+    hasCategories: function () {
+      return this.todo.categories.length > 0;
+    },
+  },
+  methods: {
+    onChangeTodo: function ($event) {
+      this.$emit('update:done', $event.target.checked);
+    },
+  },
+};
+
 Vue.createApp({
   // アプリケーションの定義
   data: function () {
@@ -57,6 +81,7 @@ Vue.createApp({
   components: {
     'app-description': sampleComponets,
     'count-up-button': countUpButton,
+    'todo-item': todoItem,
   },
   // データの変更を監視する
   watch: {

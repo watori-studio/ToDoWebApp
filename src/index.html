@@ -20,8 +20,8 @@
   <div id="app">
     <!-- 独自のタグを埋め込み-->
     <div id="id1">
-      <app-description :name = "title"></app-description>
-      <count-up-button v-model:count="count" @count-up="countUp"></count-up-button> 
+      <app-description :name="title"></app-description>
+      <count-up-button v-model:count="count" @count-up="countUp"></count-up-button>
       <div>{{count}}</div>
     </div>
     <div class="new-todo">
@@ -86,8 +86,11 @@
     </div>
 
     <ul v-if="hasTodos" class="todo-list">
+      <todo-item v-for="(todo,index) in resultTodos" :key="todo.id" :todo="todo" v-model:done=""></todo-item>
       <!-- ここにToDoタスクの一覧を出力します -->
+      <!--
       <li v-for="(todo,index) in resultTodos" :key="todo.id" class="todo-item">
+      
         <div class="todo-item-done">
           <input v-model="todo.done" type="checkbox" />
         </div>
@@ -95,6 +98,7 @@
           <div class="todo-item-date">{{new Date(todo.dateTime).toString()}}</div>
           <h3 class="todo-item-title">{{todo.title}}</h3>
           <!---概要未登録は非表示-->
+          <!--
           <div v-if="todo.description" class="todo-item-description">
             {{todo.description}}
           </div>
@@ -103,11 +107,14 @@
               {{category}}
             </li>
           </ul>
-      </li>
+      </li>-->
+        
     </ul>
     <p v-else>ToDoタスクはまだ登録されていません</p>
     <button type="submit" :disabled="!canCreateCategory">作成</button>
   </div>
+
+
   <!--　ここに書いた内容を再利用可能。ただし、読み込み順には気をつける -->
   <script type="text/x-template" id="id-app-description">
     <p>{{sampleName}}
@@ -118,6 +125,32 @@
     <button type ="button" @click="onClick">COUNT UP | {{count}}+1</button>
   </script>
 
+
+  
+  <script type="text/x-template" id="template-todo-item">
+  <li class="todo-item">
+    <div class="todo-item-done">
+      <input :checked="done" @change="onChangeTodo" type="checkbox">
+    </div>
+
+    <div class="todo-item-content">
+      <div class="todo-item-date">{{ new Date(todo.dateTime).toString() }}</div>
+      <h3 class="todo-item-title">{{ todo.title }}</h3>
+
+      <div v-if="todo.description" class="todo-item-description">{{ todo.description }}</div>
+
+      <ul v-if="todo-item-categories" v-if="hasCategories">
+        <li v-for="category in todo.categories" :key="category" class="todo-item-category">
+        {{ category }}
+        </li>
+      </ul>
+    </div>
+  </li>
+</script>
+
+
+
   <script src="app.js"></script>
 </body>
+
 </html>
